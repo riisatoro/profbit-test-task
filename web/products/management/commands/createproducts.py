@@ -7,7 +7,7 @@ from products.models import Category, Product
 
 
 class Command(BaseCommand):
-    help = 'Creates a categories and products for it with random values'
+    help = 'Creates a categories and products for each category. Require category amount and product amount.'
 
     def add_arguments(self, parser: CommandParser) -> None:
         parser.add_argument('categories', type=int)
