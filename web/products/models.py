@@ -12,6 +12,9 @@ from django.core.validators import MinLengthValidator
 class Category(Model):
     name = CharField(max_length=500, validators=[MinLengthValidator(3)], unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Product(Model):
     PRODUCT_STATUS_CHOICES = [
