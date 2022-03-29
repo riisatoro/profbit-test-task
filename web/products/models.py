@@ -1,3 +1,4 @@
+from hashlib import md5
 from itertools import cycle
 from random import choice, randint
 from typing import List
@@ -9,13 +10,22 @@ from django.db.models import (
     ForeignKey,
     Model,
     PositiveIntegerField,
+    DateTimeField,
 )
 from django.core.validators import MinLengthValidator
 
 from products.randomizers import create_names, update_products
 
 
-class Category(Model):
+class ModelMixin(Model):
+    created_at = DateTimeField(auto_now_add=True)
+    updated_at = DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(ModelMixin):
     name = CharField(max_length=500, validators=[MinLengthValidator(3)], unique=True)
 
     def randomly_create(amount: int):
@@ -35,8 +45,11 @@ class Category(Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('-created_at',)
 
-class Product(Model):
+
+class Product(ModelMixin):
     PRODUCT_STATUS_CHOICES = [
         ('in_stock', 'In Stock'),
         ('in_stock', 'Out Of Stock'),
@@ -47,6 +60,10 @@ class Product(Model):
     price = DecimalField(max_digits=20, decimal_places=2)
     status = CharField(choices=PRODUCT_STATUS_CHOICES, max_length=128)
     remains = PositiveIntegerField()
+
+    @property
+    def image(self):
+        return md5(self.name.encode('utf-8')).hexdigest()
 
     def randomly_create(categories: List[Category], amount: int):
         product_names = create_names(amount * len(categories))
@@ -83,3 +100,6 @@ class Product(Model):
     def __str__(self):
         return f'''{self.name} in {self.category} by {self.price}
             ({self.remains} amount, {self.status})'''
+
+    class Meta:
+        ordering = ('-created_at',)
