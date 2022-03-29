@@ -20,8 +20,8 @@ class Command(BaseCommand):
 
         prev_query_amount = len(connection.queries)
 
-        categories = Category.create_random_category(categories)
-        products = Product.create_random_products(categories, products)
+        categories = Category.randomly_create(categories)
+        products = Product.randomly_create(categories, products)
 
-        self.stdout.write(f'Successfully added {len(categories)} categories and {products} products.')
+        self.stdout.write(f'Successfully added {len(categories)} categories and {len(products)} products.')
         self.stdout.write(f'It took {len(connection.queries) - prev_query_amount} database requests.')
