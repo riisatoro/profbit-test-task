@@ -12,7 +12,7 @@ from django.db.models import (
 )
 from django.core.validators import MinLengthValidator
 
-from products.randomizers import create_names
+from products.randomizers import create_names, update_products
 
 
 class Category(Model):
@@ -68,6 +68,17 @@ class Product(Model):
             for category, name in zip(cycle(categories), uniq_products)
         ]
         return Product.objects.bulk_create(products_to_create)
+
+    def randomly_update(category: str = None, product: str = None):
+        filters = {}
+        if category:
+            filters = {'category__name': category}
+        if product:
+            filters = {'name': product}
+
+        products = Product.objects.filter(**filters)
+        products = update_products(products)
+        Product.objects.bulk_update(products, ['price', 'category', 'remains'])
 
     def __str__(self):
         return f'''{self.name} in {self.category} by {self.price}

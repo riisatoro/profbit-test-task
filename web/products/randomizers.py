@@ -1,7 +1,6 @@
-from random import randint
+from math import prod
+from random import randint, choice
 from typing import List
-
-from products.models import Product
 
 
 def create_names(amount: int) -> List[str]:
@@ -13,5 +12,10 @@ def create_names(amount: int) -> List[str]:
     return names
 
 
-def update_products(products: List[Product]) -> None:
-    ...
+def update_products(products):
+    for product in products:
+        product.price = randint(1, 10000) / 10
+        product.status = choice(product.PRODUCT_STATUS_CHOICES)[0]
+        product.remains = randint(1, 10000)
+
+    return products

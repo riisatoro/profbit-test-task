@@ -22,9 +22,9 @@ class Command(BaseCommand):
         category_name = options['category']
         product_name = options['product']
 
-        
-
         prev_query_amount = len(connection.queries)
+
+        Product.randomly_update(category_name, product_name)
 
         self.stdout.write(f'Category {category_name}; Product {product_name}')
         self.stdout.write(f'It took {len(connection.queries) - prev_query_amount} database requests.')
