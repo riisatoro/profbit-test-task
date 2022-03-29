@@ -61,7 +61,7 @@ class Product(Model):
             Product(
                 category=category,
                 name=name,
-                price=10,
+                price=randint(1, 10000) / 100,
                 status=choice(Product.PRODUCT_STATUS_CHOICES)[0],
                 remains=randint(1, 1000)
             )
