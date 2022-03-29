@@ -11,6 +11,9 @@ class Command(BaseCommand):
         Update all products data.
         Use optional --category to update products in entered category.
         Use optional --product to update only one product.
+        Priority is given to the product name filter.
+        To prevent console input errors, use singe comas to wrap category name.
+        E. g ./manage.py updateproduct --category \'category_name\'\n --product \'product_name\'
     '''
 
     def add_arguments(self, parser: CommandParser) -> None:
@@ -26,5 +29,11 @@ class Command(BaseCommand):
 
         Product.randomly_update(category_name, product_name)
 
-        self.stdout.write(f'Category {category_name}; Product {product_name}')
+        info_msg = '{} \'{}\' was updated successfully.'
+        if category_name:
+            message = info_msg.format('Category', category_name)
+        if product_name:
+            message = info_msg.format('Product', product_name)
+
+        self.stdout.write(message)
         self.stdout.write(f'It took {len(connection.queries) - prev_query_amount} database requests.')
