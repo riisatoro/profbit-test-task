@@ -17,10 +17,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         categories = options['categories']
         products = options['products']
-        prev_queries = len(connection.queries)
+
+        prev_query_amount = len(connection.queries)
 
         categories = Category.create_random_category(categories)
-        
+        products = Product.create_random_products(categories, products)
 
         self.stdout.write(f'Successfully added {len(categories)} categories and {products} products.')
-        self.stdout.write(f'It took {len(connection.queries) - prev_queries} database requests.')
+        self.stdout.write(f'It took {len(connection.queries) - prev_query_amount} database requests.')
