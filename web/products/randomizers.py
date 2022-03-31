@@ -3,11 +3,14 @@ from random import randint, choice
 from typing import List
 
 
+LETTERS = [chr(code) for code in list(range(65, 90)) + list(range(97, 122))]
+
+
 def create_names(amount: int) -> List[str]:
     names = []
     while(len(names) < amount):
         names.append(
-            ''.join([chr(randint(60, 120)) for _ in range(10)])
+            ''.join([choice(LETTERS) for _ in range(10)])
         )
     return names
 
