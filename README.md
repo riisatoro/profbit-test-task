@@ -41,13 +41,13 @@ The expected workflow of whole project should be:
 The most detailed explanation: ...soon...
 
 To make app testing more simple, you could use the following commands:
-* `make products-create c=CATEGORY_AMOUNT p=PRODUCT_AMOUNT` or `python manage.py createproducts CATEGORY_AMOUNT PRODUCT_AMOUNT`  
+* `make products-create c=CATEGORY_AMOUNT p=PRODUCT_AMOUNT`  or  `python manage.py createproducts CATEGORY_AMOUNT PRODUCT_AMOUNT`  
 Create a product for each category in amount, that was entered.
 
-* `make products-update [c=CATEGORY_NAME] [p=PRODUCT_NAME]` or `python manage.py updateproducts [--category=CATEGORY_NAME] [--product=PRODUCT_NAME]`  
+* `make products-update [c=CATEGORY_NAME] [p=PRODUCT_NAME]`  or  `python manage.py updateproducts [--category=CATEGORY_NAME] [--product=PRODUCT_NAME]`  
 Apply random values to products. By default all products will be updated with random values. In addition, you could set optional `CATEGORY_NAME` or `PRODUCT_NAME` to update either products in single category, or single product. If both values is supplied, only single product will be updated.
 
-* `make products-delete` or `python manage.py deleteproducts`  
+* `make products-delete`  or  `python manage.py deleteproducts`  
 Delete all products and categories.
 
 Additionaly, each command shows amount of database request spent.
