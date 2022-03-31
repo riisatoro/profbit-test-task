@@ -3,7 +3,7 @@ from django.core.management.base import (
     CommandParser,
 )
 from django.db import connection
-from products.models import Category, Product
+from products.models import Category
 
 
 class Command(BaseCommand):

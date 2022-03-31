@@ -1,7 +1,7 @@
 from django.middleware.cache import FetchFromCacheMiddleware
 from django.utils.cache import learn_cache_key
 
-from products.models import CachedPages
+from cachers.models import CachedPages
 
 
 class CustomFetchFromCacheMiddleware(FetchFromCacheMiddleware):
