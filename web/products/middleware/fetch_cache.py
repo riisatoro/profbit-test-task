@@ -1,5 +1,6 @@
 from django.middleware.cache import FetchFromCacheMiddleware
 from django.utils.cache import learn_cache_key
+from django.utils.safestring import SafeString
 
 from products.models import CachedPages
 
@@ -8,7 +9,7 @@ class CustomFetchFromCacheMiddleware(FetchFromCacheMiddleware):
     
     def process_response(self, request, response):
         if request.method == 'GET':
-            cache_key = ":1:" + learn_cache_key(request, response)
+            cache_key = learn_cache_key(request, response)
             cached_page = request.GET.get('page', 0)
             CachedPages.objects.bulk_create(
                 [CachedPages(page_number=cached_page, cache_key=cache_key)],
