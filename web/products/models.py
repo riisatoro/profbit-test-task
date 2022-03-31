@@ -1,5 +1,6 @@
 from itertools import cycle
 from random import choice, randint, shuffle
+from re import template
 from typing import List
 
 from django.conf import settings
@@ -47,10 +48,15 @@ def update_cache_page(page: int, object_list):
     cache_key = CachedPages.objects.filter(page_number=page).first()
     if not cache_key:
         return
+
     pages = Paginator(object_list, settings.PAGINATE_OBJECTS_BY)
     context = pages.page(page)
-    updated_cache = render_to_string('products/product_list.html', {'page_obj': context})
-    # cache.set(cache_key.cache_key, updated_cache)
+    template_response = cache.get(cache_key.cache_key)
+    if not template_response:
+        return
+
+    template_response.content = render_to_string('products/product_list.html', {'page_obj': context})
+    cache.set(cache_key.cache_key, template_response)
 
 
 
@@ -97,10 +103,6 @@ class Product(ModelMixin):
     price = DecimalField(max_digits=20, decimal_places=2)
     status = CharField(choices=PRODUCT_STATUS_CHOICES, max_length=128)
     remains = PositiveIntegerField()
-
-    @property
-    def image(self):
-        return md5(self.name.encode('utf-8')).hexdigest()
 
     def randomly_create(categories: List[Category], amount: int):
         product_names = create_names(amount * len(categories))
