@@ -3,7 +3,9 @@ from django.core.management.base import (
     CommandParser,
 )
 from django.db import connection
+
 from products.models import Category, Product
+from cachers.cachers import drop_all_cache
 
 
 class Command(BaseCommand):
@@ -22,6 +24,7 @@ class Command(BaseCommand):
 
         categories = Category.randomly_create(categories)
         products = Product.randomly_create(categories, products)
+        drop_all_cache()
 
         self.stdout.write(f'Successfully added {len(categories)} categories and {len(products)} products.')
         self.stdout.write(f'It took {len(connection.queries) - prev_query_amount} database requests.')

@@ -7,6 +7,9 @@ from cachers.generators import product_page_generator
 from cachers.models import CachedPages
     
 
+def drop_all_cache():
+    cache.clear()
+
 def _update_cache_page(page_number: int, product_list):
     cache_key = CachedPages.objects.filter(page_number=page_number).first()
     if not cache_key:
