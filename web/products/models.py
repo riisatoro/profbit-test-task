@@ -45,7 +45,7 @@ class Category(ModelMixin):
 class Product(ModelMixin):
     PRODUCT_STATUS_CHOICES = [
         ('in_stock', 'In Stock'),
-        ('in_stock', 'Out Of Stock'),
+        ('out_of_stock', 'Out Of Stock'),
     ]
 
     name = CharField(max_length=500, validators=[MinLengthValidator(3)], unique=True)
