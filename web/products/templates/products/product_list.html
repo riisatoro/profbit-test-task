@@ -2,15 +2,26 @@
 
 {% block content %}
   <div class="container">
+    {% if not page_obj %}<h1 class="text-center">Store has no products</h1>{% endif %}
     <div class="row justify-content-between">
       {% for product in page_obj %}
       <div class="col-3 my-2">
         <div class="card">
+          <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">{{ product.name }} {{ product.price }} $</h5>
-            <h6 class="card-subtitle mb-2 text-muted">in category: {{ product.category }}</h6>
-            <p class="card-text">{{ product.status }}</p>
-            <p class="card-text">only {{ product.remains }} left!</p>
+            <div class="d-flex justify-content-between">
+              <h5 class="card-title">{{ product.name }}</h5> 
+              <p class="badge badge-pill bg-success">in {{ product.category }}</p>
+            </div>
+            <p class="text-justify">Lorem ipsum dolor sit amet, quis congue lobortis..</p>
+            <div class="d-flex justify-content-between align-items-center">
+              {% if product.status == 'in_stock' %}
+                <a href="#" class="btn btn-danger">Buy for {{ product.price }}</a>
+                <span class="small">only {{ product.remains }} left!</span>
+              {% else %}
+                <a href="#" class="btn btn-secondary disabled">Out of stock</a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
@@ -18,5 +29,11 @@
     </div>
   </div>
 
-  {% include 'pagination.html' %}
+  {% if page_obj %}{% include 'pagination.html' %}{% endif %}
+
+  <style>
+    .text-justify {
+      text-align: justify;
+    }
+  </style>
 {% endblock %}

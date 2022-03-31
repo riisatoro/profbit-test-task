@@ -1,3 +1,4 @@
+from hashlib import md5
 from itertools import cycle
 from random import choice, randint, shuffle
 from typing import List
@@ -52,6 +53,11 @@ class Product(ModelMixin):
     price = DecimalField(max_digits=20, decimal_places=2)
     status = CharField(choices=PRODUCT_STATUS_CHOICES, max_length=128)
     remains = PositiveIntegerField()
+
+    @property
+    def image(self):
+        hash = md5(self.name.encode('utf-8')).hexdigest()
+        return f'https://www.gravatar.com/avatar/{hash}?d=retro'
 
     def randomly_create(categories: List[Category], amount: int):
         product_names = create_names(amount * len(categories))
