@@ -12,8 +12,6 @@ class Command(BaseCommand):
         Use optional --category to update products in entered category.
         Use optional --product to update only one product.
         Priority is given to the product name filter.
-        To prevent console input errors, use singe comas to wrap category name.
-        E. g ./manage.py updateproduct --category \'category_name\'\n --product \'product_name\'
     '''
 
     def add_arguments(self, parser: CommandParser) -> None:

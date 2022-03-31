@@ -1,4 +1,3 @@
-from math import prod
 from random import randint, choice
 from typing import List
 

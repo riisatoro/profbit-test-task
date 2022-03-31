@@ -3,7 +3,6 @@ from itertools import cycle
 from random import choice, randint, shuffle
 from typing import List
 
-from django.conf import settings
 from django.core.validators import MinLengthValidator
 from django.db.models import (
     CASCADE,
@@ -56,8 +55,8 @@ class Product(ModelMixin):
 
     @property
     def image(self):
-        hash = md5(self.name.encode('utf-8')).hexdigest()
-        return f'https://www.gravatar.com/avatar/{hash}?d=retro'
+        img_hash = md5(self.name.encode('utf-8')).hexdigest()
+        return f'https://www.gravatar.com/avatar/{img_hash}?d=retro'
 
     def randomly_create(categories: List[Category], amount: int):
         product_names = create_names(amount * len(categories))

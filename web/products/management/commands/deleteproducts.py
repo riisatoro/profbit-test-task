@@ -1,8 +1,6 @@
 from django.core.management.base import (
     BaseCommand,
-    CommandParser,
 )
-from django.db import connection
 from products.models import Category
 
 
@@ -11,4 +9,4 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         Category.objects.all().delete()
-        self.stdout.write(f'Products and Categories was cleared successfully.')
+        self.stdout.write('Products and Categories was cleared successfully.')
