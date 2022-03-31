@@ -8,14 +8,9 @@ from products.models import Product
 
 class ProductListView(ListView):
     model = Product
-    paginate_by = 50
+    paginate_by = settings.PAGINATE_OBJECTS_BY
     allow_empty = True
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['CACHE_TIME'] = settings.CACHE_TIME_SEC
-        return context
-
-    def get(self, *args, **kwargs):
+    def get_queryset(self):
         sleep(2)
-        return super().get(*args, **kwargs)
+        return super().get_queryset()

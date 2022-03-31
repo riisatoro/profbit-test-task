@@ -35,7 +35,6 @@ class Command(BaseCommand):
             message = info_msg.format('Category', category_name)
         if product_name:
             message = info_msg.format('Product', product_name)
-        
 
         self.stdout.write(message)
         self.stdout.write(f'It took {len(connection.queries) - prev_query_amount} database requests.')

@@ -1,6 +1,6 @@
 from hashlib import md5
 from itertools import cycle
-from random import choice, randint
+from random import choice, randint, shuffle
 from typing import List
 
 from django.db.models import (
