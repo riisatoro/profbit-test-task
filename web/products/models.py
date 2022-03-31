@@ -103,3 +103,11 @@ class Product(ModelMixin):
 
     class Meta:
         ordering = ('-created_at',)
+
+
+class CachedPages(ModelMixin):
+    page_number = PositiveIntegerField()
+    cache_key = CharField(max_length=255)
+
+    class Meta:
+        unique_together = ('page_number', 'cache_key')

@@ -25,7 +25,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'products.middleware.update_cache.UpdateCacheMiddleware',
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
     'products.middleware.fetch_cache.CustomFetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
